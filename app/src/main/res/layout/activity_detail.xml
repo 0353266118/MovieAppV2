@@ -104,6 +104,29 @@
             app:layout_constraintStart_toStartOf="@id/tv_title_detail"
             app:layout_constraintTop_toBottomOf="@id/tv_overview_label"
             tools:text="Đây là phần mô tả của bộ phim..." />
+        <TextView
+            android:id="@+id/tv_cast_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Cast"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_overview"
+            app:layout_constraintTop_toBottomOf="@id/tv_overview" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cast_label"
+            tools:listitem="@layout/item_cast" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

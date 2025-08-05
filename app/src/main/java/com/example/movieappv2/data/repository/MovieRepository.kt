@@ -3,6 +3,7 @@ package com.example.movieappv2.data.repository
 import androidx.lifecycle.LiveData
 import com.example.movieappv2.data.api.RetrofitInstance
 import com.example.movieappv2.data.local.MovieDao
+import com.example.movieappv2.data.model.Cast
 import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.utils.Constants
@@ -51,5 +52,14 @@ class MovieRepository(private val movieDao: MovieDao) {
     suspend fun searchMovies(query: String): List<Movie> {
         val response = RetrofitInstance.api.searchMovies(Constants.API_KEY, query)
         return if (response.isSuccessful) response.body()?.movies ?: emptyList() else emptyList()
+    }
+
+    suspend fun getMovieCredits(movieId: Int): List<Cast> {
+        val response = RetrofitInstance.api.getMovieCredits(movieId, Constants.API_KEY)
+        return if (response.isSuccessful) {
+            response.body()?.cast ?: emptyList()
+        } else {
+            emptyList()
+        }
     }
 }

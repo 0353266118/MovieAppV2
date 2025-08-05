@@ -10,7 +10,7 @@
         android:title="Search" />
     <item
         android:id="@+id/nav_favorites"
-        android:icon="@drawable/ic_favorites"
+        android:icon="@drawable/ic_favorite_border"
         android:title="Favourite" />
     <item
         android:id="@+id/nav_profile"

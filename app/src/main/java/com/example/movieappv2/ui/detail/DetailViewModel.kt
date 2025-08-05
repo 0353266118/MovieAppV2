@@ -8,6 +8,7 @@ import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.repository.MovieRepository
 import kotlinx.coroutines.launch
 import android.util.Log
+import com.example.movieappv2.data.model.Cast
 
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,6 +17,21 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
     val movieDetail: LiveData<MovieDetail> = _movieDetail
+
+    // THÊM LIVE DATA MỚI
+    private val _cast = MutableLiveData<List<Cast>>()
+    val cast: LiveData<List<Cast>> = _cast
+
+    init {
+        // ...
+    }
+
+    // Hàm này sẽ được gọi cùng lúc với fetchMovieDetails
+    fun fetchMovieCredits(movieId: Int) {
+        viewModelScope.launch {
+            _cast.value = repository.getMovieCredits(movieId)
+        }
+    }
 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite

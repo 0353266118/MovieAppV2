@@ -5,16 +5,19 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movieappv2.R
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.databinding.ActivityDetailBinding
+import com.example.movieappv2.ui.adapters.CastAdapter
 import com.example.movieappv2.utils.Constants
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModels()
     private var currentMovie: MovieDetail? = null
+    private lateinit var castAdapter: CastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,21 @@ class DetailActivity : AppCompatActivity() {
         observeViewModel()
         // Bật lại hàm này
         setupClickListeners()
+        setupCastRecyclerView()
+        observeViewModel()
+        if (movieId != -1) {
+            detailViewModel.fetchMovieDetails(movieId)
+            detailViewModel.checkFavoriteStatus(movieId)
+            // Ra lệnh lấy danh sách diễn viên
+            detailViewModel.fetchMovieCredits(movieId)
+        }
+    }
+    private fun setupCastRecyclerView() {
+        castAdapter = CastAdapter()
+        binding.rvCast.apply {
+            layoutManager = LinearLayoutManager(this@DetailActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
+        }
     }
 
     private fun observeViewModel() {
@@ -47,6 +65,10 @@ class DetailActivity : AppCompatActivity() {
         // Bật lại phần này
         detailViewModel.isFavorite.observe(this) { isFav ->
             updateFavoriteIcon(isFav)
+
+        }
+        detailViewModel.cast.observe(this) { castList ->
+            castAdapter.submitList(castList)
         }
     }
 

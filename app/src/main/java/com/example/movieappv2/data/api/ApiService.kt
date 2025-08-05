@@ -1,5 +1,6 @@
 package com.example.movieappv2.data.api
 
+import com.example.movieappv2.data.model.CreditsResponse
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.model.MovieResponse
 import retrofit2.Response
@@ -33,4 +34,12 @@ interface ApiService {
         @Path("movie_id") movieId: Int, // Annotation @Path để thay thế {movie_id}
         @Query("api_key") apiKey: String
     ): Response<MovieDetail> // Trả về đối tượng MovieDetail
+
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Response<CreditsResponse> // Trả về đối tượng CreditsResponse
 }
+
