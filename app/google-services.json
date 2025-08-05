@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "711053829116",
+    "project_id": "duy1-27ccc",
+    "storage_bucket": "duy1-27ccc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711053829116:android:9a52a756e281317e6b4879",
+        "android_client_info": {
+          "package_name": "com.example.movieapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9hftq2eDbRlYYT6qzfUwEoVdRlU7l4SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711053829116:android:e8e86fec8987c6286b4879",
+        "android_client_info": {
+          "package_name": "com.example.movieappv2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9hftq2eDbRlYYT6qzfUwEoVdRlU7l4SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711053829116:android:d3d57fa8ed54c6bb6b4879",
+        "android_client_info": {
+          "package_name": "com.juhalion.base"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9hftq2eDbRlYYT6qzfUwEoVdRlU7l4SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
