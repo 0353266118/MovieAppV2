@@ -41,4 +41,15 @@ class MovieRepository(private val movieDao: MovieDao) {
     suspend fun isFavorite(movieId: Int): Boolean {
         return movieDao.getFavoriteById(movieId) != null
     }
+    // HÀM MỚI
+    suspend fun getTrendingMovies(): List<Movie> {
+        val response = RetrofitInstance.api.getTrendingMovies(Constants.API_KEY)
+        return if (response.isSuccessful) response.body()?.movies ?: emptyList() else emptyList()
+    }
+
+    // HÀM MỚI
+    suspend fun searchMovies(query: String): List<Movie> {
+        val response = RetrofitInstance.api.searchMovies(Constants.API_KEY, query)
+        return if (response.isSuccessful) response.body()?.movies ?: emptyList() else emptyList()
+    }
 }
