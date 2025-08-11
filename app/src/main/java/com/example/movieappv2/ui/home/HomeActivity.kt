@@ -56,10 +56,27 @@ class HomeActivity : AppCompatActivity() {
     private fun setupBottomNav() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
+                // Khi người dùng nhấn vào item Home (đang ở màn hình Home rồi)
+                R.id.nav_home -> {
+                    // Không làm gì cả, chỉ trả về true
+                    true
+                }
+
+                // Khi người dùng nhấn vào item Search
+                R.id.nav_search -> {
+                    startActivity(Intent(this, SearchActivity::class.java))
+                    true
+                }
+
+                // Khi người dùng nhấn vào item Favorites
                 R.id.nav_favorites -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
                     true
                 }
+
+                // (Sau này có thể thêm case cho Profile)
+                // R.id.nav_profile -> { ... ; true }
+
                 else -> false
             }
         }
