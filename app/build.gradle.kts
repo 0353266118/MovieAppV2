@@ -43,27 +43,37 @@ android {
 }
 
 dependencies {
+    // Core and UI Libraries
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.activity:activity-ktx:1.9.0")
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    // ViewModel & LiveData
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
+
+    // Firebase - Dùng BOM để quản lý phiên bản
+    // Khai báo BOM một lần duy nhất
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-auth")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
-    implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("com.google.firebase:firebase-storage")
+
+    // Retrofit - for Networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    // Gson Converter - để biến JSON thành đối tượng Kotlin
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Glide - for Image Loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    val room_version = "2.6.1" // Khai báo phiên bản để dễ quản lý
+
+    // Room - for Local Database
+    val room_version = "2.6.1" // Dùng 'val' để khai báo biến trong Kotlin Script
     implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version") // Quan trọng: dùng kapt cho trình xử lý annotation
-// Hỗ trợ coroutines cho Room (để thao tác không làm treo app)
+    kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
+    // Testing Libraries
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }

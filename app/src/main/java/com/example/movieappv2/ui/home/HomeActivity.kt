@@ -1,6 +1,8 @@
 package com.example.movieappv2.ui.home
 
 import android.content.Intent
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import com.example.movieappv2.databinding.ActivityHomeBinding
 import com.example.movieappv2.ui.detail.DetailActivity
 import com.example.movieappv2.ui.favorites.FavoritesActivity
 import com.example.movieappv2.ui.search.SearchActivity // Import SearchActivity
+import com.example.movieappv2.ui.settings.SettingsActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -23,12 +26,34 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Gọi hàm mới để cập nhật header
+        setupHeader()
+
         setupRecyclerView()
         observeViewModel()
         setupBottomNav()
-        setupClickListeners() // Thêm hàm xử lý các click khác
+        setupClickListeners()
 
         homeViewModel.fetchPopularMovies()
+    }
+    private fun setupHeader() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.let {
+            // Lấy tên hiển thị, nếu không có thì lấy phần đầu của email
+            val greetingName = if (it.displayName.isNullOrEmpty()) {
+                it.email?.split("@")?.get(0)
+            } else {
+                it.displayName
+            }
+            binding.tvGreetingName.text = "Hi, $greetingName" // Gán vào TextView tên
+
+            // Dùng Glide để tải ảnh đại diện
+            Glide.with(this)
+                .load(it.photoUrl)
+                .placeholder(R.drawable.placeholder_avatar) // Ảnh mặc định
+                .error(R.drawable.placeholder_avatar)       // Ảnh khi lỗi
+                .into(binding.ivAvatar) // Gán vào ImageView avatar
+        }
     }
 
     private fun handleMovieClick(movie: Movie) {
@@ -74,9 +99,10 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
 
-                // (Sau này có thể thêm case cho Profile)
-                // R.id.nav_profile -> { ... ; true }
-
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    true
+                }
                 else -> false
             }
         }

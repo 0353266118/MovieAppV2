@@ -35,20 +35,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingBottom="16dp">
 
             <!-- 1. Header Chào mừng -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <!-- Avatar -->
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/avatar_image"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-                <!-- Chào hỏi -->
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    tools:src="@tools:sample/avatars" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,13 +58,16 @@
                     android:layout_marginStart="16dp"
                     android:layout_toEndOf="@id/iv_avatar"
                     android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/tv_greeting_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hi, Mohit"
                         android:textColor="@color/movie_textColorPrimary_black"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Hi, Mohit" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
