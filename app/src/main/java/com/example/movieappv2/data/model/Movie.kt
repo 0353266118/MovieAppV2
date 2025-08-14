@@ -2,6 +2,8 @@ package com.example.movieappv2.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
+// đối tượng phim khi được lấy từ API hoặc lưu trữ trong ROOM
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "favorite_movies") // Đánh dấu đây là một bảng trong database, đặt tên là "favorite_movies"

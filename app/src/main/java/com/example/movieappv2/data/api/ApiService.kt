@@ -8,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+// interface định nghĩa các lệnh API đến trang TMDB
 interface ApiService {
 
     // HÀM MỚI: Lấy danh sách phim thịnh hành trong ngày

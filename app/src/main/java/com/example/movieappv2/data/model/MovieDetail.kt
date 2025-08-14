@@ -2,6 +2,7 @@ package com.example.movieappv2.data.model
 
 import com.google.gson.annotations.SerializedName
 
+// chi tiết về đối tượng phim
 data class MovieDetail(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,

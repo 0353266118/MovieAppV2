@@ -10,6 +10,7 @@ import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.databinding.ItemTopSearchBinding // Dùng layout này
 import com.example.movieappv2.utils.Constants
 
+// adapter chỉ đến danh sách phim sau khi thực hiện tìm kiếm
 class BaseMovieAdapter(
     private val onMovieClick: (Movie) -> Unit // Lambda để báo cáo sự kiện click
 ) : ListAdapter<Movie, BaseMovieAdapter.MovieViewHolder>(DiffCallback) {

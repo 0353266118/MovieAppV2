@@ -50,11 +50,11 @@ class LoginActivity : AppCompatActivity() {
 //            finish()
 //        }
 //
-//        // Sự kiện đi đến trang đăng ký
-//        binding.tvGoToSignUp.setOnClickListener {
-//            val intent = Intent(this, RegisterActivity::class.java)
-//            startActivity(intent)
-//        }
+        // Sự kiện đi đến trang đăng ký
+        binding.tvGoToSignUp.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun handleLogin() {

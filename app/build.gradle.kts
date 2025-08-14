@@ -65,6 +65,7 @@ dependencies {
 
     // Glide - for Image Loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.androidx.activity)
 
     // Room - for Local Database
     val room_version = "2.6.1" // Dùng 'val' để khai báo biến trong Kotlin Script

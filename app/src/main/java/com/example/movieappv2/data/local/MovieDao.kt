@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.movieappv2.data.model.Movie
 
+// DAO định nghĩa các hành động với dữ liệu từ local database
+
 @Dao // Đánh dấu đây là một DAO
 interface MovieDao {
 

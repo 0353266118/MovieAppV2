@@ -11,6 +11,8 @@ import com.example.movieappv2.data.model.Cast
 import com.example.movieappv2.databinding.ItemCastBinding
 import com.example.movieappv2.utils.Constants
 
+// adapter chỉ đến danh sách diễn viên ở detailActivity
+
 // SỬA LẠI THAM CHIẾU Ở ĐÂY, TRỎ VÀO DiffCallback BÊN DƯỚI
 class CastAdapter : ListAdapter<Cast, CastAdapter.CastViewHolder>(DiffCallback) {
 

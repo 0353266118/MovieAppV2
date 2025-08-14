@@ -8,6 +8,8 @@ import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.utils.Constants
 
+// nơi chọn xem lấy dữ liệu từ API hay ROOM local
+
 class MovieRepository(private val movieDao: MovieDao) {
     suspend fun getPopularMovies(): List<Movie> {
         val response = RetrofitInstance.api.getPopularMovies(Constants.API_KEY)

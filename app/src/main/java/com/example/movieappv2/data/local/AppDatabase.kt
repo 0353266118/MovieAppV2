@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.movieappv2.data.model.Movie
 
+// class kết nối Entity và DAO
+
 // Annotation @Database để khai báo các entity và phiên bản
 @Database(entities = [Movie::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

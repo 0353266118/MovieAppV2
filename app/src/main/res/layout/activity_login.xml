@@ -94,7 +94,7 @@
                 android:text="Forgot Password?"
                 android:textColor="@color/movie_banner_background"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
