@@ -10,6 +10,8 @@ import com.example.movieappv2.databinding.ActivityMovieListBinding
 import com.example.movieappv2.ui.adapters.BaseMovieAdapter
 import com.example.movieappv2.ui.detail.DetailActivity
 
+// class chứa list all phim ở recommeneded
+
 class MovieListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieListBinding
     private val viewModel: MovieListViewModel by viewModels()

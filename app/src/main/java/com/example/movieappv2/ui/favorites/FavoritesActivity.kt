@@ -2,6 +2,7 @@ package com.example.movieappv2.ui.favorites
 
 import android.content.Intent // 1. IMPORT INTENT
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -52,7 +53,17 @@ class FavoritesActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         favoritesViewModel.allFavorites.observe(this) { favoriteMovies ->
-            favoritesAdapter.submitList(favoriteMovies)
+            // Kiểm tra xem danh sách nhận về có rỗng hay không
+            if (favoriteMovies.isEmpty()) {
+                // Nếu rỗng: Ẩn RecyclerView và hiện thông báo
+                binding.rvFavorites.visibility = View.GONE
+                binding.layoutEmptyFavorites.visibility = View.VISIBLE
+            } else {
+                // Nếu không rỗng: Hiện RecyclerView, ẩn thông báo và cập nhật dữ liệu
+                binding.rvFavorites.visibility = View.VISIBLE
+                binding.layoutEmptyFavorites.visibility = View.GONE
+                favoritesAdapter.submitList(favoriteMovies)
+            }
         }
     }
 }
