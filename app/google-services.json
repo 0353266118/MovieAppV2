@@ -1,29 +1,11 @@
 {
   "project_info": {
     "project_number": "711053829116",
+    "firebase_url": "https://duy1-27ccc-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "duy1-27ccc",
     "storage_bucket": "duy1-27ccc.firebasestorage.app"
   },
   "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:711053829116:android:9a52a756e281317e6b4879",
-        "android_client_info": {
-          "package_name": "com.example.movieapp"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC9hftq2eDbRlYYT6qzfUwEoVdRlU7l4SU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:711053829116:android:e8e86fec8987c6286b4879",
@@ -31,7 +13,20 @@
           "package_name": "com.example.movieappv2"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "711053829116-deck5ve28cnkr5k4q50dc8n0evai6agb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.movieappv2",
+            "certificate_hash": "4bf284cb50491c6c2c30e7eb3f9e0228989f75b9"
+          }
+        },
+        {
+          "client_id": "711053829116-k2vbe2lkjavkrc9np82dm4lphh1k900s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC9hftq2eDbRlYYT6qzfUwEoVdRlU7l4SU"
@@ -39,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711053829116-k2vbe2lkjavkrc9np82dm4lphh1k900s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -50,7 +50,12 @@
           "package_name": "com.juhalion.base"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "711053829116-k2vbe2lkjavkrc9np82dm4lphh1k900s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC9hftq2eDbRlYYT6qzfUwEoVdRlU7l4SU"
@@ -58,7 +63,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711053829116-k2vbe2lkjavkrc9np82dm4lphh1k900s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

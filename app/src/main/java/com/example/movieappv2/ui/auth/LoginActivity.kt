@@ -113,11 +113,12 @@ class LoginActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Đăng nhập Firebase thành công, chuyển đến màn hình Home
-                    goToHomeActivity()
+                    // Đăng nhập Firebase thành công, thông báo và chuyển màn hình NGAY LẬP TỨC
+                    Toast.makeText(this, "Đăng nhập bằng Google thành công!", Toast.LENGTH_SHORT).show()
+                    goToHomeActivity() // GỌI TRỰC TIẾP Ở ĐÂY, KHÔNG CHỜ LiveData NỮA
                 } else {
-                    // Đăng nhập Firebase thất bại
-                    Toast.makeText(this, "Firebase authentication failed.", Toast.LENGTH_SHORT).show()
+                    // Đăng nhập Firebase thất bại, hiển thị lỗi chi tiết hơn
+                    Toast.makeText(this, "Firebase authentication failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
     }
