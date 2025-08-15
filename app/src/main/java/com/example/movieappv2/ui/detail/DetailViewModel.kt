@@ -9,10 +9,14 @@ import com.example.movieappv2.data.repository.MovieRepository
 import kotlinx.coroutines.launch
 import android.util.Log
 import com.example.movieappv2.data.model.Cast
+import com.example.movieappv2.data.model.Review
 
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
 
+    // THÊM LIVE DATA MỚI
+    private val _reviews = MutableLiveData<List<Review>>()
+    val reviews: LiveData<List<Review>> = _reviews
     private val repository: MovieRepository
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
@@ -30,6 +34,11 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     fun fetchMovieCredits(movieId: Int) {
         viewModelScope.launch {
             _cast.value = repository.getMovieCredits(movieId)
+        }
+    }
+    fun fetchMovieReviews(movieId: Int) {
+        viewModelScope.launch {
+            _reviews.value = repository.getMovieReviews(movieId)
         }
     }
 

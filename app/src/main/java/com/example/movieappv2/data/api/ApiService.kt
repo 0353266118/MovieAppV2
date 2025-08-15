@@ -3,6 +3,7 @@ package com.example.movieappv2.data.api
 import com.example.movieappv2.data.model.CreditsResponse
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.model.MovieResponse
+import com.example.movieappv2.data.model.ReviewResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,6 +11,13 @@ import retrofit2.http.Query
 
 // interface định nghĩa các lệnh API đến trang TMDB
 interface ApiService {
+
+    // THÊM HÀM MỚI
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getMovieReviews(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Response<ReviewResponse>
 
     // HÀM MỚI: Lấy danh sách phim thịnh hành trong ngày
     @GET("trending/movie/day")

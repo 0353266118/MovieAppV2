@@ -23,7 +23,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <!-- Lớp phủ Gradient để nút bấm nổi bật trên nền ảnh -->
         <View
             android:layout_width="0dp"
             android:layout_height="80dp"
@@ -32,7 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- =================== NÚT QUAY LẠI =================== -->
         <ImageView
             android:id="@+id/iv_back_arrow"
             android:layout_width="wrap_content"
@@ -43,7 +41,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
-        <!-- =================== NÚT YÊU THÍCH =================== -->
         <ImageView
             android:id="@+id/iv_favorite"
             android:layout_width="wrap_content"
@@ -54,7 +51,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
-        <!-- Các TextView cho Tiêu đề, Đánh giá, Mô tả (giữ nguyên) -->
         <TextView
             android:id="@+id/tv_title_detail"
             android:layout_width="0dp"
@@ -67,13 +63,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_backdrop"
-            tools:text="Tên phim " />
+            tools:text="Tên phim" />
 
+        <!-- SỬA LẠI TEXTVIEW NÀY -->
         <TextView
             android:id="@+id/tv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="4dp"
+            android:drawableTint="#FFC107"
             android:gravity="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="16sp"
@@ -104,6 +104,7 @@
             app:layout_constraintStart_toStartOf="@id/tv_title_detail"
             app:layout_constraintTop_toBottomOf="@id/tv_overview_label"
             tools:text="Đây là phần mô tả của bộ phim..." />
+
         <TextView
             android:id="@+id/tv_cast_label"
             android:layout_width="wrap_content"
@@ -120,13 +121,40 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_cast_label"
             tools:listitem="@layout/item_cast" />
 
+        <!-- THÊM CÁC VIEW MỚI CHO REVIEWS -->
+        <TextView
+            android:id="@+id/tv_reviews_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Reviews"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_cast_label"
+            app:layout_constraintTop_toBottomOf="@id/rv_cast" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reviews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reviews_label"
+            tools:listitem="@layout/item_review" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

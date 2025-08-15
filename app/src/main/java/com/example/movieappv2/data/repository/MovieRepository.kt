@@ -6,6 +6,7 @@ import com.example.movieappv2.data.local.MovieDao
 import com.example.movieappv2.data.model.Cast
 import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.data.model.MovieDetail
+import com.example.movieappv2.data.model.Review
 import com.example.movieappv2.utils.Constants
 
 // nơi chọn xem lấy dữ liệu từ API hay ROOM local
@@ -27,6 +28,18 @@ class MovieRepository(private val movieDao: MovieDao) {
             null
         }
     }
+    // THÊM HÀM MỚI
+    suspend fun getMovieReviews(movieId: Int): List<Review> {
+        val response = RetrofitInstance.api.getMovieReviews(movieId, Constants.API_KEY)
+        return if (response.isSuccessful) {
+            response.body()?.reviews ?: emptyList()
+        } else {
+            emptyList()
+        }
+    }
+
+
+
     // ===== CÁC HÀM MỚI TƯƠNG TÁC VỚI ROOM =====
 
     suspend fun addFavorite(movie: Movie) {
