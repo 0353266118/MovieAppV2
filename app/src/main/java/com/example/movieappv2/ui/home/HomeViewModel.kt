@@ -30,7 +30,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun fetchPopularMovies() {
         viewModelScope.launch {
             // Bây giờ repository đã được khởi tạo đúng cách
-            val movies = repository.getPopularMovies()
+            val movies = repository.getPopularMovies(page = 1)
             _popularMovies.value = movies
         }
     }

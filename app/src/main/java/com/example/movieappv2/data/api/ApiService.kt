@@ -23,10 +23,13 @@ interface ApiService {
         @Query("api_key") apiKey: String,
         @Query("query") query: String
     ): Response<MovieResponse>
+
+
     // Lấy danh sách phim phổ biến
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int // Thêm tham số trang
     ): Response<MovieResponse>
 
     // THÊM HÀM MỚI

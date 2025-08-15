@@ -12,6 +12,7 @@ import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.databinding.ActivityHomeBinding
 import com.example.movieappv2.ui.detail.DetailActivity
 import com.example.movieappv2.ui.favorites.FavoritesActivity
+import com.example.movieappv2.ui.movielist.MovieListActivity
 import com.example.movieappv2.ui.search.SearchActivity // Import SearchActivity
 import com.example.movieappv2.ui.settings.SettingsActivity
 
@@ -112,6 +113,12 @@ class HomeActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.ivSearch.setOnClickListener { // Giả sử icon kính lúp có id này
             val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tvSeeAllRecommended.setOnClickListener {
+            val intent = Intent(this, MovieListActivity::class.java)
+            // Sau này có thể truyền thêm loại danh sách, ví dụ:
+            // intent.putExtra("LIST_TYPE", "popular")
             startActivity(intent)
         }
     }
