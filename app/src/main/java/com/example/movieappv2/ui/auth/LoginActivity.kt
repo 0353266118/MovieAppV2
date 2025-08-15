@@ -2,6 +2,7 @@ package com.example.movieappv2.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,16 +13,45 @@ import com.example.movieappv2.ui.auth.AuthViewModel
 import com.example.movieappv2.ui.home.HomeActivity
 
 //import com.example.movieapp.uiView.auth.RegisterActivity
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.movieappv2.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val authViewModel: AuthViewModel by viewModels()
 
+    // 1. Khai báo GoogleSignInClient
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+    // 2. Khai báo ActivityResultLauncher
+    private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                // Đăng nhập Google thành công, bây giờ lấy token để xác thực với Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                // Đăng nhập Google thất bại
+                Toast.makeText(this, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 3. Cấu hình Google Sign-In
+        configureGoogleSignIn()
 
         setupClickListeners()
         observeViewModel()
@@ -59,6 +89,37 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
+        // 4. Kích hoạt và gán sự kiện cho nút Google
+        binding.btnGoogle.visibility = View.VISIBLE // Đảm bảo nút được hiển thị
+        binding.btnGoogle.setOnClickListener {
+            signInWithGoogle()
+        }
+    }
+    private fun configureGoogleSignIn() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) // Lấy token để xác thực với Firebase
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
+    }
+
+    // 5. Hàm xác thực với Firebase sau khi đăng nhập Google thành công
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Đăng nhập Firebase thành công, chuyển đến màn hình Home
+                    goToHomeActivity()
+                } else {
+                    // Đăng nhập Firebase thất bại
+                    Toast.makeText(this, "Firebase authentication failed.", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun handleLogin() {

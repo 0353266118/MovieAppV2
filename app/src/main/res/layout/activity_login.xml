@@ -137,7 +137,7 @@
                 app:iconTint="@null"
                 app:strokeColor="@color/movi_borderColor"
                 app:strokeWidth="1dp"
-                android:visibility="gone" />
+                 />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_apple"
