@@ -12,6 +12,10 @@ import kotlinx.coroutines.launch
 
 // 4. Sửa class signature: Kế thừa từ AndroidViewModel và nhận application
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
+    private val _bannerMovies = MutableLiveData<List<Movie>>()
+    val bannerMovies: LiveData<List<Movie>> = _bannerMovies
+
+
 
     // 5. Khai báo repository
     private val repository: MovieRepository
@@ -27,11 +31,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         repository = MovieRepository(movieDao)
     }
 
-    fun fetchPopularMovies() {
+    fun fetchInitialData() {
         viewModelScope.launch {
-            // Bây giờ repository đã được khởi tạo đúng cách
-            val movies = repository.getPopularMovies(page = 1)
-            _popularMovies.value = movies
+            // 1. Tải phim Top Rated cho Banner
+            val topRatedMovies = repository.getTopRatedMovies(page = 1)
+            // Lấy 5 phim đầu tiên để hiển thị trên banner
+            _bannerMovies.value = topRatedMovies.take(5)
+
+            // 2. Tải phim Popular cho danh sách Recommended
+            val popularMoviesList = repository.getPopularMovies(page = 1)
+            _popularMovies.value = popularMoviesList
         }
     }
+
 }

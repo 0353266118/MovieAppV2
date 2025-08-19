@@ -68,12 +68,15 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     fun toggleFavorite(movieDetail: MovieDetail) {
         viewModelScope.launch {
             val isCurrentlyFavorite = _isFavorite.value ?: false
+
+            // Cập nhật việc tạo đối tượng Movie
             val movie = Movie(
                 id = movieDetail.id,
                 title = movieDetail.title,
                 overview = movieDetail.overview,
                 posterPath = movieDetail.posterPath,
-                voteAverage = movieDetail.voteAverage
+                voteAverage = movieDetail.voteAverage,
+                backdropPath = movieDetail.backdropPath
             )
 
             if (isCurrentlyFavorite) {

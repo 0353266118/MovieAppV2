@@ -11,6 +11,13 @@ import retrofit2.http.Query
 
 // interface định nghĩa các lệnh API đến trang TMDB
 interface ApiService {
+    //Lấy danh sách phim được đánh giá cao
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int
+    ): Response<MovieResponse>
+
 
     // THÊM HÀM MỚI
     @GET("movie/{movie_id}/reviews")

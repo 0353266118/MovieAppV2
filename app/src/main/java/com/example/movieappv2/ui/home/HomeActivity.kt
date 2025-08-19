@@ -1,105 +1,121 @@
 package com.example.movieappv2.ui.home
 
 import android.content.Intent
-import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.movieappv2.R
 import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.databinding.ActivityHomeBinding
+import com.example.movieappv2.ui.adapters.BannerAdapter
+import com.example.movieappv2.ui.home.MoviePosterAdapter
 import com.example.movieappv2.ui.detail.DetailActivity
 import com.example.movieappv2.ui.favorites.FavoritesActivity
 import com.example.movieappv2.ui.movielist.MovieListActivity
-import com.example.movieappv2.ui.search.SearchActivity // Import SearchActivity
+import com.example.movieappv2.ui.search.SearchActivity
 import com.example.movieappv2.ui.settings.SettingsActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var popularMoviesAdapter: MoviePosterAdapter
+    private lateinit var bannerAdapter: BannerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Gọi hàm mới để cập nhật header
+        // Gọi tất cả các hàm cài đặt
         setupHeader()
-
-        setupRecyclerView()
+        setupViews()
         observeViewModel()
         setupBottomNav()
         setupClickListeners()
 
-        homeViewModel.fetchPopularMovies()
+        // Ra lệnh cho ViewModel tải dữ liệu
+        homeViewModel.fetchInitialData()
     }
+
+    // Hàm tải và hiển thị thông tin người dùng
     private fun setupHeader() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.let {
-            // Lấy tên hiển thị, nếu không có thì lấy phần đầu của email
             val greetingName = if (it.displayName.isNullOrEmpty()) {
-                it.email?.split("@")?.get(0)
+                it.email?.split("@")?.get(0) ?: "User"
             } else {
                 it.displayName
             }
-            binding.tvGreetingName.text = "Hi, $greetingName" // Gán vào TextView tên
+            binding.tvGreetingName.text = "Hi, $greetingName"
 
-            // Dùng Glide để tải ảnh đại diện
             Glide.with(this)
                 .load(it.photoUrl)
-                .placeholder(R.drawable.placeholder_avatar) // Ảnh mặc định
-                .error(R.drawable.placeholder_avatar)       // Ảnh khi lỗi
-                .into(binding.ivAvatar) // Gán vào ImageView avatar
+                .placeholder(R.drawable.placeholder_avatar)
+                .error(R.drawable.placeholder_avatar)
+                .into(binding.ivAvatar)
         }
     }
 
+    // Hàm xử lý khi người dùng click vào một phim bất kỳ
     private fun handleMovieClick(movie: Movie) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("MOVIE_ID", movie.id)
         startActivity(intent)
     }
 
-    private fun setupRecyclerView() {
-        popularMoviesAdapter = MoviePosterAdapter(emptyList()) { movie ->
+    // Hàm TỔNG để cài đặt tất cả các View
+    private fun setupViews() {
+        // Cài đặt RecyclerView cho "Recommended"
+        popularMoviesAdapter = MoviePosterAdapter { movie ->
             handleMovieClick(movie)
         }
         binding.rvRecommended.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = popularMoviesAdapter
         }
+
+        // Cài đặt ViewPager2 cho Banner
+        bannerAdapter = BannerAdapter { movie ->
+            handleMovieClick(movie)
+        }
+        binding.viewPagerBanner.adapter = bannerAdapter
+
+        // Các tùy chọn thêm để ViewPager2 trông đẹp hơn
+        binding.viewPagerBanner.offscreenPageLimit = 3
+        binding.viewPagerBanner.clipToPadding = false
+        binding.viewPagerBanner.clipChildren = false
+        binding.viewPagerBanner.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
     }
 
+    // Lắng nghe dữ liệu từ ViewModel
     private fun observeViewModel() {
         homeViewModel.popularMovies.observe(this) { movies ->
-            popularMoviesAdapter.updateData(movies)
+            popularMoviesAdapter.submitList(movies)
+        }
+
+        homeViewModel.bannerMovies.observe(this) { bannerMovies ->
+            bannerAdapter.submitList(bannerMovies)
         }
     }
 
+    // Xử lý sự kiện click trên thanh điều hướng dưới cùng
     private fun setupBottomNav() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                // Khi người dùng nhấn vào item Home (đang ở màn hình Home rồi)
-                R.id.nav_home -> {
-                    // Không làm gì cả, chỉ trả về true
-                    true
-                }
-
-                // Khi người dùng nhấn vào item Search
+                R.id.nav_home -> true
                 R.id.nav_search -> {
                     startActivity(Intent(this, SearchActivity::class.java))
                     true
                 }
-
-                // Khi người dùng nhấn vào item Favorites
                 R.id.nav_favorites -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
                     true
                 }
-
                 R.id.nav_profile -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
                     true
@@ -109,17 +125,13 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // HÀM MỚI: Xử lý các click còn lại trên màn hình Home
+    // Xử lý các click còn lại trên màn hình
     private fun setupClickListeners() {
-        binding.ivSearch.setOnClickListener { // Giả sử icon kính lúp có id này
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
+        binding.ivSearch.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
         }
         binding.tvSeeAllRecommended.setOnClickListener {
-            val intent = Intent(this, MovieListActivity::class.java)
-            // Sau này có thể truyền thêm loại danh sách, ví dụ:
-            // intent.putExtra("LIST_TYPE", "popular")
-            startActivity(intent)
+            startActivity(Intent(this, MovieListActivity::class.java))
         }
     }
 }

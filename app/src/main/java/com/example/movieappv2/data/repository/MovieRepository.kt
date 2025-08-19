@@ -12,6 +12,10 @@ import com.example.movieappv2.utils.Constants
 // nơi chọn xem lấy dữ liệu từ API hay ROOM local
 
 class MovieRepository(private val movieDao: MovieDao) {
+    suspend fun getTopRatedMovies(page: Int): List<Movie> {
+        val response = RetrofitInstance.api.getTopRatedMovies(Constants.API_KEY, page)
+        return if (response.isSuccessful) response.body()?.movies ?: emptyList() else emptyList()
+    }
     suspend fun getPopularMovies(page: Int): List<Movie> {
         val response = RetrofitInstance.api.getPopularMovies(Constants.API_KEY, page)
         return if (response.isSuccessful) {
