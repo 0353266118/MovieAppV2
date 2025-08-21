@@ -12,6 +12,8 @@ data class Movie(
     @SerializedName("overview") val overview: String?,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("vote_average") val voteAverage: Double,
+
     // THÊM TRƯỜNG NÀY VÀO
     @SerializedName("backdrop_path") val backdropPath: String?
+
 )

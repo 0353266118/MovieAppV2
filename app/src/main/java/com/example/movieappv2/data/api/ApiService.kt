@@ -5,6 +5,7 @@ import com.example.movieappv2.data.model.GenreResponse
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.model.MovieResponse
 import com.example.movieappv2.data.model.ReviewResponse
+import com.example.movieappv2.data.model.VideoResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,6 +13,12 @@ import retrofit2.http.Query
 
 // interface định nghĩa các lệnh API đến trang TMDB
 interface ApiService {
+    // THÊM HÀM MỚI
+    @GET("movie/{movie_id}/videos")
+    suspend fun getMovieVideos(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Response<VideoResponse>
 
 
     @GET("genre/movie/list")

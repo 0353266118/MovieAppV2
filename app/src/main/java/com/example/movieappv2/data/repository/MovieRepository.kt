@@ -8,11 +8,20 @@ import com.example.movieappv2.data.model.Genre
 import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.model.Review
+import com.example.movieappv2.data.model.Video
 import com.example.movieappv2.utils.Constants
 
 // nơi chọn xem lấy dữ liệu từ API hay ROOM local
 
 class MovieRepository(private val movieDao: MovieDao) {
+    suspend fun getMovieVideos(movieId: Int): List<Video> {
+        val response = RetrofitInstance.api.getMovieVideos(movieId, Constants.API_KEY)
+        return if (response.isSuccessful) {
+            response.body()?.videos ?: emptyList()
+        } else {
+            emptyList()
+        }
+    }
     suspend fun getMovieGenres(): List<Genre> {
         val response = RetrofitInstance.api.getMovieGenres(Constants.API_KEY)
         return if (response.isSuccessful) response.body()?.genres ?: emptyList() else emptyList()

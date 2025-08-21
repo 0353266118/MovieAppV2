@@ -10,10 +10,13 @@ import kotlinx.coroutines.launch
 import android.util.Log
 import com.example.movieappv2.data.model.Cast
 import com.example.movieappv2.data.model.Review
+import com.example.movieappv2.data.model.Video
 
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
-
+    // THÊM LIVE DATA MỚI CHO TRAILER
+    private val _trailerVideo = MutableLiveData<Video?>() // Có thể null nếu không có trailer
+    val trailerVideo: LiveData<Video?> = _trailerVideo
     // THÊM LIVE DATA MỚI
     private val _reviews = MutableLiveData<List<Review>>()
     val reviews: LiveData<List<Review>> = _reviews
@@ -28,6 +31,14 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         // ...
+    }
+    fun fetchMovieTrailer(movieId: Int) {
+        viewModelScope.launch {
+            val videos = repository.getMovieVideos(movieId)
+            // Tìm video đầu tiên là "Trailer" và có site là "YouTube"
+            val trailer = videos.find { it.type == "Trailer" && it.site == "YouTube" }
+            _trailerVideo.value = trailer
+        }
     }
 
     // Hàm này sẽ được gọi cùng lúc với fetchMovieDetails
