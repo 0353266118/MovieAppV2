@@ -10,5 +10,6 @@ data class MovieDetail(
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("backdrop_path") val backdropPath: String, // Ảnh nền lớn
     @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("release_date") val releaseDate: String,
     @SerializedName("genres") val genres: List<Genre> // Danh sách thể loại
 )

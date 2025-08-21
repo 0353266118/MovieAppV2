@@ -91,6 +91,11 @@ class DetailActivity : AppCompatActivity() {
         binding.tvOverview.text = movieDetail.overview
         binding.tvRating.text = String.format("%.1f", movieDetail.voteAverage)
 
+        binding.tvReleaseDate.text = movieDetail.releaseDate // Hiển thị đầy đủ "YYYY-MM-DD"
+
+        // Nối tên các thể loại lại với nhau
+        binding.tvGenres.text = movieDetail.genres.joinToString(", ") { it.name }
+
         val backdropUrl = Constants.IMAGE_BASE_URL + movieDetail.backdropPath
         Glide.with(this).load(backdropUrl).into(binding.ivBackdrop)
     }
