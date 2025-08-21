@@ -1,5 +1,7 @@
 package com.example.movieappv2.utils
 
+
+// lưu API keys
 object Constants {
     const val API_KEY = "c0ecb86e08ee99815604f266877e4a8b"
     const val BASE_URL = "https://api.themoviedb.org/3/"

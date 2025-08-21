@@ -41,6 +41,15 @@ class HomeActivity : AppCompatActivity() {
         // Ra lệnh cho ViewModel tải dữ liệu
         homeViewModel.fetchInitialData()
     }
+    override fun onResume() {
+        super.onResume()
+        // Hàm này được gọi mỗi khi Activity này quay trở lại foreground
+        // (ví dụ: sau khi đóng SettingsActivity hoặc FavoritesActivity).
+
+        // Chúng ta sẽ tìm đến item "Home" trong menu của BottomNavigationView
+        // và đặt nó vào trạng thái được chọn (checked).
+        binding.bottomNavigation.menu.findItem(R.id.nav_home).isChecked = true
+    }
 
     // Hàm tải và hiển thị thông tin người dùng
     private fun setupHeader() {
@@ -103,11 +112,13 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Xử lý sự kiện click trên thanh điều hướng dưới cùng
     private fun setupBottomNav() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> true
+                R.id.nav_home -> {
+                    // Đã ở màn hình Home rồi, không cần làm gì
+                    true
+                }
                 R.id.nav_search -> {
                     startActivity(Intent(this, SearchActivity::class.java))
                     true

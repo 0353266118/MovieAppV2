@@ -1,14 +1,16 @@
-// 1. Dòng package LUÔN LUÔN nằm ở trên cùng
+
 package com.example.movieappv2.ui.profile
 
-// 2. TẤT CẢ các dòng import phải nằm ngay sau dòng package
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movieappv2.databinding.ActivityChangePasswordBinding
 import com.google.firebase.auth.FirebaseAuth
 
-// 3. Khai báo class nằm sau tất cả các dòng import
+
+
+// màn đổi mật khẩu
 class ChangePasswordActivity : AppCompatActivity() {
 
     // Khai báo các biến của class

@@ -9,6 +9,8 @@ import com.example.movieappv2.ui.profile.ChangePasswordActivity
 import com.example.movieappv2.ui.profile.EditProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 
+// hàm  phần edit profile, thêm chức năng log out ra màn hình login
+
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
 

@@ -22,6 +22,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+
+
+// class đăng nhập xử lí code xml
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding

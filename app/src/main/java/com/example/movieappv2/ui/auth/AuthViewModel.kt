@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+// bộ não xử lí code logic
+
 class AuthViewModel : ViewModel() {
 
     // Khởi tạo Firebase Auth instance
@@ -36,7 +38,7 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    // Thêm hàm đăng ký để dùng cho RegisterActivity sau này
+
     fun register(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

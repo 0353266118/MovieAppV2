@@ -10,6 +10,8 @@ import com.example.movieappv2.databinding.ItemMoviePosterBinding
 import com.example.movieappv2.ui.adapters.BannerAdapter
 import com.example.movieappv2.utils.Constants
 
+
+// adapter chỉ đến danh sách phim đề xuất theo chiều ngang ở màn home
 class MoviePosterAdapter(
     private val onMovieClick: (Movie) -> Unit
 ) : ListAdapter<Movie, MoviePosterAdapter.MovieViewHolder>(BannerAdapter.DiffCallback) {

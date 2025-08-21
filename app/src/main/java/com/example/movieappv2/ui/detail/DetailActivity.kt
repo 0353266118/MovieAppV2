@@ -13,6 +13,8 @@ import com.example.movieappv2.ui.adapters.CastAdapter
 import com.example.movieappv2.ui.adapters.ReviewAdapter
 import com.example.movieappv2.utils.Constants
 
+
+// thêm dàn cast , thêm review
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
