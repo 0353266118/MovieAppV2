@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.movieappv2.data.api.RetrofitInstance
 import com.example.movieappv2.data.local.MovieDao
 import com.example.movieappv2.data.model.Cast
+import com.example.movieappv2.data.model.Genre
 import com.example.movieappv2.data.model.Movie
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.model.Review
@@ -12,6 +13,17 @@ import com.example.movieappv2.utils.Constants
 // nơi chọn xem lấy dữ liệu từ API hay ROOM local
 
 class MovieRepository(private val movieDao: MovieDao) {
+    suspend fun getMovieGenres(): List<Genre> {
+        val response = RetrofitInstance.api.getMovieGenres(Constants.API_KEY)
+        return if (response.isSuccessful) response.body()?.genres ?: emptyList() else emptyList()
+    }
+
+    suspend fun discoverMoviesByGenre(genreId: Int, page: Int): List<Movie> {
+        val response = RetrofitInstance.api.discoverMoviesByGenre(Constants.API_KEY, genreId, page)
+        return if (response.isSuccessful) response.body()?.movies ?: emptyList() else emptyList()
+    }
+
+
     suspend fun getTopRatedMovies(page: Int): List<Movie> {
         val response = RetrofitInstance.api.getTopRatedMovies(Constants.API_KEY, page)
         return if (response.isSuccessful) response.body()?.movies ?: emptyList() else emptyList()

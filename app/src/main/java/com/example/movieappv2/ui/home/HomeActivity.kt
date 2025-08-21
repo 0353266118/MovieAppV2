@@ -18,6 +18,7 @@ import com.example.movieappv2.ui.movielist.MovieListActivity
 import com.example.movieappv2.ui.search.SearchActivity
 import com.example.movieappv2.ui.settings.SettingsActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.example.movieappv2.ui.genres.GenresActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -116,13 +117,20 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-                    // Đã ở màn hình Home rồi, không cần làm gì
-                    true
+                    true // Đã ở Home, không làm gì
                 }
                 R.id.nav_search -> {
                     startActivity(Intent(this, SearchActivity::class.java))
                     true
                 }
+
+                // =================== THÊM CASE MỚI VÀO ĐÂY ===================
+                R.id.nav_explore -> {
+                    startActivity(Intent(this, GenresActivity::class.java))
+                    true
+                }
+                // ==========================================================
+
                 R.id.nav_favorites -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
                     true

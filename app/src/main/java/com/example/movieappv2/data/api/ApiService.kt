@@ -1,6 +1,7 @@
 package com.example.movieappv2.data.api
 
 import com.example.movieappv2.data.model.CreditsResponse
+import com.example.movieappv2.data.model.GenreResponse
 import com.example.movieappv2.data.model.MovieDetail
 import com.example.movieappv2.data.model.MovieResponse
 import com.example.movieappv2.data.model.ReviewResponse
@@ -11,6 +12,19 @@ import retrofit2.http.Query
 
 // interface định nghĩa các lệnh API đến trang TMDB
 interface ApiService {
+
+
+    @GET("genre/movie/list")
+    suspend fun getMovieGenres(@Query("api_key") apiKey: String): Response<GenreResponse>
+
+    @GET("discover/movie")
+    suspend fun discoverMoviesByGenre(
+        @Query("api_key") apiKey: String,
+        @Query("with_genres") genreId: Int,
+        @Query("page") page: Int
+    ): Response<MovieResponse>
+
+
     //Lấy danh sách phim được đánh giá cao
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
